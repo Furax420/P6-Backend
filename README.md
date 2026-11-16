@@ -88,6 +88,28 @@ npm run build && npm run start:prod
 
 The API will be available at `http://localhost:3000`
 
+### Running with Docker
+
+From the project directory, with Docker Desktop running:
+
+```bash
+docker compose up -d
+```
+
+Compose builds the API image and starts MongoDB. The API is available on both `http://localhost:8080` and `http://localhost:3000`: the project instructions and the self-assessment sheet specify different ports. For example, open `http://localhost:8080/api/docs` for Swagger or `http://localhost:8080/health` for the health endpoint. Both host ports must be available.
+
+The API connects to MongoDB through the Compose service name `mongodb`. MongoDB has no published host port and stores its data in a named Docker volume. This local exercise configuration does not enable MongoDB authentication and is not intended for production.
+
+To rebuild after changing the code, inspect logs, or stop the services:
+
+```bash
+docker compose up -d --build
+docker compose logs -f
+docker compose down
+```
+
+`docker compose down` keeps the named volume and its data. The `--volumes` option deletes that volume and its database contents.
+
 ### Verify Installation
 
 Check the health endpoint:
