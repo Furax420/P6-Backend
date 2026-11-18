@@ -247,6 +247,10 @@ python run-tests.py
 
 On Linux, use `python3 run-tests.py` if `python` is unavailable. The script detects the project, runs its Jest unit tests, and creates `test-results/junit.xml`. It removes its previous report before each run and returns a non-zero exit code if the tests fail or the report cannot be produced. The results directory is ignored by Git.
 
+### Automated tests on GitHub
+
+The `.github/workflows/ci.yml` workflow runs these tests on every push and pull request. In the **Actions** tab, select a run to see its summary and download the JUnit report from the `junit-test-results` artifact, including after a failure when a report was generated.
+
 ## Architecture
 
 This application follows the **NestJS modular architecture** with a `core/` + `modules/` separation:
