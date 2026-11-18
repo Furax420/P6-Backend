@@ -237,6 +237,16 @@ npm run test:watch
 npm run test:e2e
 ```
 
+### Unified test runner with JUnit report
+
+With Python 3.8 or later and npm dependencies installed (`npm ci`), run:
+
+```bash
+python run-tests.py
+```
+
+On Linux, use `python3 run-tests.py` if `python` is unavailable. The script detects the project, runs its Jest unit tests, and creates `test-results/junit.xml`. It removes its previous report before each run and returns a non-zero exit code if the tests fail or the report cannot be produced. The results directory is ignored by Git.
+
 ## Architecture
 
 This application follows the **NestJS modular architecture** with a `core/` + `modules/` separation:
