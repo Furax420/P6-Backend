@@ -266,6 +266,12 @@ On Linux, use `python3 run-tests.py` if `python` is unavailable. The script dete
 
 The `.github/workflows/ci.yml` workflow runs these tests on every push and pull request. In the **Actions** tab, select a run to see its summary and download the JUnit report from the `junit-test-results` artifact, including after a failure when a report was generated.
 
+### Automatic releases
+
+After tests and image publication on `main`, `semantic-release` checks the conventional commits since the previous Git tag. A `fix:` can trigger a patch, a `feat:` can trigger a minor release, and a breaking change marked with `!` or `BREAKING CHANGE` can trigger a major release.
+
+The GitHub release lists the versioned image reference and digest. For example, for Git release `v1.0.0`, the GHCR image gets the Docker tag `1.0.0` alongside its `main-<SHA>` tag. Both tags point to the same content. A release commit records the changelog and version files.
+
 ## Architecture
 
 This application follows the **NestJS modular architecture** with a `core/` + `modules/` separation:
