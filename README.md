@@ -110,6 +110,21 @@ docker compose down
 
 `docker compose down` keeps the named volume and its data. The `--volumes` option deletes that volume and its database contents.
 
+### Test the image published to GHCR
+
+On GitHub, open **Actions** and select a successful push run. Copy the image reference under **Docker image published on GHCR**. For a private package, sign in to Docker with a GitHub classic token that has `read:packages` access. [Registry authentication](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-container-registry#authenticating-to-the-container-registry).
+
+In PowerShell, replace `TAG` with the published tag and run these commands from this repository.
+
+```powershell
+$env:P6_IMAGE = 'ghcr.io/furax420/p6-backend:TAG'
+docker pull $env:P6_IMAGE
+docker compose -f docker-compose.yml -f docker-compose.ghcr.yml up -d --no-build
+docker compose -f docker-compose.yml -f docker-compose.ghcr.yml ps
+```
+
+Open [Swagger](http://localhost:8082/api/docs) or request [the notions list](http://localhost:8082/api/notions) to check that the API can use MongoDB. The override selects the downloaded image and port `8082`. It starts a separate Compose project with its own MongoDB volume. To stop it, use the same Compose files with `down` in place of `up -d --no-build`.
+
 ### Verify Installation
 
 Check the health endpoint:
